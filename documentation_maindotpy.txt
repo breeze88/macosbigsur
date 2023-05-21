@@ -1,2 +1,12 @@
 The AirTagCrypto library is the python library to decrypt Airtag
 reports from Hatomist's Github https://github.com/hatomist/openhaystack-python
+
+Main.py also has a config.py file. Create a config.py file with the following content:
+
+--------------------------------------------------------------------------------------
+# Your private keys here
+private_keys = ['YOUR_PK_HERE_1', 'YOUR_PK_HERE_2']
+
+# Your openhaystack server url here
+simple_server_url = 'http://example.org:8090/getLocationReports'
+--------------------------------------------------------------------------------------
