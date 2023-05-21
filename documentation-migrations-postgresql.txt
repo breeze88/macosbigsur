@@ -1,0 +1,110 @@
+
+Rails migrations
+-------------------------------------------------------------------------
+
+There is an intricate way of setting up the database schemata. First you have to do the migrations 
+In Ruby on Rails. The database table airdrops and reports stay empty. Then in Postgresql
+You will fill the attributes by using sql queries. In the Ruby on Rails folder Airrails the 
+Reports database table is called songs and the Airdrips database table is called albums. Also
+Some attribute names differ (German names in the Airrails database shemata).
+
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+rails db:create
+
+-------------------------------------------------------------------------
+
+
+
+rails g model User
+
+rails db:migrate
+
+
+rails g devise user 
+
+rails db:migrate
+
+rails g friendly_id
+
+rails db:migrate
+
+rails g migration AddSlugToUsers slug:uniq
+
+rails db:migrate
+
+--------------------------------------rails d----------------------------------
+
+rails g migration create_airdrips
+
+--------------------------------------rails d----------------------------------
+
+
+rails g migration create_reports
+
+
+--------------------------------------postgresql----------------------------------
+
+
+
+
+ALTER TABLE airdrips
+ADD COLUMN report_id varchar(555),
+ADD COLUMN latitude FLOAT,
+ADD COLUMN longitude FLOAT,
+ADD COLUMN report_name varchar(555),
+ADD COLUMN validatedbyuserid INTEGER,
+ADD COLUMN used BOOLEAN DEFAULT FALSE,
+ADD COLUMN secret FLOAT,
+ADD COLUMN score INTEGER DEFAULT 0,
+ADD COLUMN status INTEGER DEFAULT 0;
+
+
+
+
+--------------------------------------postgresql---------------------------------
+
+ 
+
+
+ALTER TABLE reports
+ADD COLUMN report_id varchar(555),
+ADD COLUMN longitude FLOAT NOT NULL,
+ADD COLUMN latitude FLOAT NOT NULL,
+ADD COLUMN tooltip varchar(255) NOT NULL,
+ADD COLUMN report_time TIMESTAMP NOT NULL,
+ADD COLUMN hash text,
+ADD COLUMN metersfromgroundzero FLOAT;
+ADD COLUMN status BOOLEAN DEFAULT FALSE;
+
+
+
+
+--------------------------------------postgresql----------------------------------
+
+
+ALTER TABLE reports ADD CONSTRAINT unique_hash UNIQUE (hash);
+
+ALTER TABLE airdrops ADD CONSTRAINT unique_reportidconstraint UNIQUE (report_id);
+
+
+--------------------------------------rails d--------------------------------------
+
+
+ALTER TABLE reports
+ADD CONSTRAINT fk_child_parent
+FOREIGN KEY (report_id)
+REFERENCES albums(report_id)
+ON DELETE CASCADE;
+
+
+------------------------------------------------------------------------------------
+
+
+
